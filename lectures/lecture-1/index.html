@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture 1</title>
+</head>
+<body>
+  <ul>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../lectures/index.html">Lectures</a></li>
+    <li><a href="../../assignments/index.html">Assignments</a></li> <!-- Using aria-current to indicate this is the current page -->
+    <li><a href="../../practicals/index.html">Practicals</a></li>
+    <li><a href="../../tutorials/index.html">Tutorials</a></li>
+  </ul>
+  <h1>Chapter 1 - Part 1 Computer System Hardware</h1>
+  
+  <h2>Operating System</h2>
+  <p>Operating system is a program that acts as an intermediary between a user of a computer and the computer hardware.</p>
+  <p>It provides an environment in which a user can execute programs conveniently and efficiently.</p>
+  <p>It also acts as a resource manager, for example scheduling.</p>
+  
+  <h2>Basic Hardware Components</h2>
+  <p>Examples of hardware components include processor, registers, main memory, disk memory, I/O devices, and the system bus.</p>
+
+  <h2>Processor</h2>
+  <p>The processor is the engine that interprets and executes instructions.</p>
+  <p>It is also known as the Central Processing Unit (CPU)</p>
+
+  <h2>Main Memory</h2>
+  <p>Main memory is a temporary storage area that holds both the program and the data while the processor is executing the instructions.</p>
+  <p>It is also known as Random Access Memory (RAM), Real memory, or primary memory</p>
+  <p>It is volatile, meaning that its contents are lost when power is turned off.</p>
+
+  <h2>I/O Modules</h2>
+  <p>I/O modules are used to move data between the computer and its external environment.</p>
+  <p>Examples include Secondary memory devices, keyboards, monitors, terminals</p>
+
+  <h2>System Bus</h2>
+  <p>The system bus provides a communication path between the processor, main memory, and the I/O modules.</p>
+  
+  <h2>Evolution of Hardware: Microprocessor</h2>
+  <p>Microprocessor was the first processor and is a processor on a single integrated circuit.</p>
+  <p>Invention that brought up desktop and handheld computers.</p>
+  <p>It is a fast general purpose processor.</p>
+  <p>Today we have multi-core processors, which are processors with two or more independent processing units.</p>
+  <p>Each core is capable of executing its own instructions.</p>
+
+  <h2>Evolution of Hardware: Graphical Processing Units (GPU)</h2>
+  <p>Initially introduced as a special-purpose processor for graphics computations.</p>
+  <p>They allow for the efficient computation of arrays of data using the same instruction.</p>
+  <p>Today they are used for a wide variety of applications.</p>
+  <ul>
+    <li>Scientific computing</li>
+    <li>Machine learning</li>
+    <li>Image processing</li>
+    <li>Video processing</li>
+    <li>3D graphics</li>
+  </ul>
+
+  <h2>Evolution of Hardware: Digital Signal Processors (DSP)</h2>
+  <p>Special purpose processors for streaming signals such as audio and video.</p>
+  <p>They are used for encoding and decoding audio and video streams. For example, different codecs such as MP3, AAC, and H.264.</p>
+  <p>They also provide support for encryption and security algorithms.</p>
+
+  <h2>Evolution of Hardware: System on a Chip (SoC)</h2>
+  <p>SoC is a single chip that contains CPUs, DSPs, GPUs, memory, and I/O interfaces.</p>
+  <p>Since all of these components are on a single chip, they can communicate with each other very quickly.</p>
+
+  <h2>Instruction execution</h2>
+  <p>A program is a sequence of instructions stored in memory.</p>
+  <p>When the computer is executing a program, the processor fetches instructions from memory and executes them one at a time.</p>
+  <p>Once it finishes executing an instruction, it fetches the next instruction.</p>
+  <p>It will continue until the program halts</p>
+
+  <h3>What is an instruction?</h3>
+  <p>An instruction is a binary code that specifies the operation to be performed and the operands (data) on which it is to be performed.</p>
+  <p>For example, the 16-bit instruction (in hexadecimal) 1940 means:</p>
+  <ul>
+    <li> The first four bits (1) specify the operation to be performed (Load from memory)</li>
+    <li> The next twelve bits (940) specify the address of the memory location where the data is stored.</li>
+    <li> The processor will fetch the data from the memory location specified by the address and store it in a register called the accumulator (AC).</li>
+  </ul>
+  <p>There are other 16-bit instruction opcodes that specify other operations such as:</p>
+  <ul>
+    <li>Store to memory in hex is 2</li>
+    <li>Add to AC from memory in hex is 5</li>
+  </ul>
+
+  <h2>Example Instruction Execution</h2>
+  <p>Consider the following state of the hardware</p>
+  <ul>
+    <li>AC holds 0</li>
+    <li>PC holds 300</li>
+    <li>IR holds 0</li>
+    <li>Memory location 300 holds the instruction 1940</li>
+    <li>Memory location 940 holds the data 3</li>
+  </ul>
+  <p>When the processor executes the instruction, it will:</p>
+  <ul>
+    <li>Fetch the instruction from memory location 300 and store it in the instruction register (IR)</li>
+    <li>Increment the program counter (PC) to 301</li>
+    <li>Decode the instruction in the IR</li>
+    <li>Fetch the data from memory location 940 which is 3 and store it in the accumulator (AC)</li>
+  </ul>
+  <p>After the instruction is executed, the state of the hardware will be:</p>
+  <ul>
+    <li>AC holds 3</li>
+    <li>PC holds 301</li>
+    <li>IR holds 1940</li>
+    <li>Memory location 300 holds the instruction 1940</li>
+    <li>Memory location 940 holds the data 3</li>
+  </ul>
+  <p>The cycle will repeat until the program halts</p>
+  
+  <p>To continue the previous example using an addition instruction:</p>
+  <ul>
+    <li>AC holds 3</li>
+    <li>PC holds 301</li>
+    <li>IR holds 1940</li>
+    <li>Memory location 300 holds the instruction 1940</li>
+    <li>Memory location 940 holds the data 3</li>
+    <li>Memory location 301 holds the instruction 5941</li>
+    <li>Memory location 941 holds the data 2</li>
+  </ul>
+  <p>When the processor executes the instruction, it will:</p>
+  <ul>
+    <li>Fetch the instruction from memory location 301 and store it in the instruction register (IR)</li>
+    <li>Increment the program counter (PC) to 302</li>
+    <li>Decode the instruction in the IR</li>
+    <li>Fetch the data from memory location 941 which is 2 and add it to the accumulator (AC)</li>
+  </ul>
+  <p>After the instruction is executed, the state of the hardware will be:</p>
+  <ul>
+    <li>AC holds 5</li>
+    <li>PC holds 302</li>
+    <li>IR holds 5941</li>
+    <li>Memory location 300 holds the instruction 1940</li>
+    <li>Memory location 940 holds the data 3</li>
+    <li>Memory location 301 holds the instruction 5941</li>
+    <li>Memory location 941 holds the data 2</li>
+  </ul>
+  <p>We will now continue the example by storing the value back in memory</p>
+  <ul>
+    <li>AC holds 5</li>
+    <li>PC holds 302</li>
+    <li>IR holds 5941</li>
+    <li>Memory location 300 holds the instruction 1940</li>
+    <li>Memory location 940 holds the data 3</li>
+    <li>Memory location 301 holds the instruction 5941</li>
+    <li>Memory location 941 holds the data 2</li>
+    <li>Memory location 302 holds the instruction 2942</li>
+    <li>Memory location 942 holds the data 0</li>
+  </ul>
+  <p>When the processor executes the instruction, it will:</p>
+  <ul>
+    <li>Fetch the instruction from memory location 302 and store it in the instruction register (IR)</li>
+    <li>Increment the program counter (PC) to 303</li>
+    <li>Decode the instruction in the IR</li>
+    <li>Store the data from the accumulator (AC) to memory location 942</li>
+  </ul>
+  <p>After the instruction is executed, the state of the hardware will be:</p>
+  <ul>
+    <li>AC holds 5</li>
+    <li>PC holds 303</li>
+    <li>IR holds 2942</li>
+    <li>Memory location 300 holds the instruction 1940 (unchanged)</li>
+    <li>Memory location 940 holds the data 3 (unchanged)</li>
+    <li>Memory location 301 holds the instruction 5941 (unchanged)</li>
+    <li>Memory location 941 holds the data 2 (unchanged)</li>
+    <li>Memory location 302 holds the instruction 2942 (unchanged)</li>
+    <li>Memory location 942 holds the data 5 (changed)</li>
+  </ul>
+
+  <h2>Interrupts</h2>
+  <p>Interrupts are a mechanism by which I/O modules can interrupt the normal program execution of the processor.</p>
+  <p>This improves the utilisation of the processor</p>
+  <ul>
+    <li>I/O devices are much slower than the processor</li>
+    <li>Without interrupts, the processor would have to wait for the I/O device to complete its operation</li>
+    <li>With interrupts, the processor can continue executing other instructions while the I/O device is performing its operation</li>
+    <li>When the I/O device has completed its operation, it will interrupt the processor to inform it that it has completed</li>
+  </ul>
+
+  <h3>Classes of interrupts</h3>
+  <p>There are four classes of interrupts</p>
+  <ul>
+    <li>Program interrupts: These are exceptions for arithmetic overflow, division by zero, etc.</li>
+    <li>Timer interrupts: These are generated by a timer which allows the operating system to perform certain functions on a regular basis, such as backing up memory</li>
+    <li>I/O interrupts: These are generated by I/O devices to inform the processor that they have completed their operation</li>
+    <li>Hardware failure interrupts: These are generated by hardware failures such as power failure</li>
+  </ul>
+
+  <h3>Program execution without interrupts</h3>
+  <p>Without interrupts, the processor would have to wait for the I/O device to complete its operation</p>
+  <p>For example, if a user wants to type inside a document while printing another document, the user will not be able type any keys into their document until the printer finishes since the processor will be waiting for it</p>
+
+  <h3>Program execution with interrupts</h3>
+  <p>With interrupts, the processor can continue executing other instructions while the I/O device is performing its operation</p>
+  <p>When the I/O device has completed its operation, it will interrupt the processor to inform it that it has completed</p>
+  <p>This shows that interrupts improve the utilisation of the processor</p>
+  <p>This means there will be less time sitting idle waiting for I/O devices to complete their operation</p>
+
+  <h2>3 Stage Instruction cycle with interrupts</h2>
+  <p>Previously, we dealt with a 2 stage instruction cycle.</p>
+  <p>With interrupts, we need to add an extra stage to the instruction cycle</p>
+  <p>The 3 stages are:</p>
+  <ul>
+    <li>Fetch: same as before</li>
+    <li>Execute: same as before</li>
+    <li>Interrupt: Check for interrupts</li>
+  </ul>
+
+  <h3>Interrupt handling</h3>
+  <p>When an interrupt occurs, the processor will:</p>
+  <ul>
+    <li>Save the current state of the processor to the stack</li>
+    <li>Load the address of the interrupt service routine into the program counter (PC)</li>
+    <li>Execute the interrupt service routine</li>
+    <li>Restore the state of the processor from the stack</li>
+    <li>Continue the execution of the program</li>
+  </ul>
+
+  <h3>Multiple interrupts</h3>
+  <p>Multiple interrupts can occur at the same time</p>
+  <p>For example if the user is typing and the printer has finished printing, both the keyboard and the printer will interrupt the processor</p>
+  <p>When this happens, there are two approaches that can be taken:</p>
+  <ul>
+    <li>Sequential interrupts: The processor will handle one interrupt at a time</li>
+    <li>Prioritised interrupts: The processor will handle the highest priority interrupt first</li>
+  </ul>
+
+</body>
+</html>

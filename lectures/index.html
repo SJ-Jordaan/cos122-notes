@@ -1,23 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>COS122 Notes</title>
 </head>
+
 <body>
-  <!-- Create a navbar for navigating to other static html pages -->
-  <nav>
+  <!-- ARIA role for navigation area -->
+  <nav role="navigation">
     <ul>
       <li><a href="../index.html">Home</a></li>
-      <li><a href="index.html">Lectures</a></li>
+      <li><a href="index.html" aria-current="page">Lectures</a></li> <!-- Using aria-current to indicate current page -->
       <li><a href="../assignments/index.html">Assignments</a></li>
       <li><a href="../practicals/index.html">Practicals</a></li>
       <li><a href="../tutorials/index.html">Tutorials</a></li>
     </ul>
   </nav>
+
   <h1>Lectures homepage</h1>
-  
+  <ul>
+    <li>
+      <a href="lecture-1/index.html" title="Lecture 1 with direct translation">Lecture 1 - Directly translated</a>
+    </li>
+    <li>
+      <a href="lecture-1/gpt-index.html" title="Lecture 1 with alternative explanations">Lecture 1 - Alternative explanations</a>
+    </li>
+  </ul>
 </body>
+
 </html>

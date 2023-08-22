@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 1: Computer System Hardware</title>
+</head>
+
+<body>
+  <header>
+      <nav role="navigation" aria-label="Main Navigation"> <!-- Added aria-label for descriptive purpose -->
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../../lectures/index.html">Lectures</a></li>
+          <li><a href="../../assignments/index.html">Assignments</a></li> <!-- Using aria-current to indicate this is the current page -->
+          <li><a href="../../practicals/index.html">Practicals</a></li>
+          <li><a href="../../tutorials/index.html">Tutorials</a></li>
+        </ul>
+      </nav>
+        <h1>Chapter 1 - Part 1: Computer System Hardware</h1>
+    </header>
+    <main>
+        <section aria-labelledby="os-section">
+            <h2 id="os-section">Operating System</h2>
+            <p>An operating system (OS) serves as a bridge between a computer user and the computer hardware. It creates an environment that makes executing programs more user-friendly and efficient.</p>
+            <p>Moreover, the OS takes on the role of a resource manager, orchestrating tasks like scheduling processes.</p>
+        </section>
+
+        <section aria-labelledby="hardware-section">
+            <h2 id="hardware-section">Basic Hardware Components</h2>
+            <p>Computer hardware is made up of several components. Examples include:</p>
+            <ul>
+                <li>Processor</li>
+                <li>Registers</li>
+                <li>Main memory</li>
+                <li>Disk memory</li>
+                <li>I/O devices</li>
+                <li>System bus</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="processor-section">
+            <h2 id="processor-section">Processor</h2>
+            <p>The heart of the computer, the processor, interprets and carries out instructions. It's often referred to as the Central Processing Unit (CPU).</p>
+        </section>
+
+        <section aria-labelledby="memory-section">
+            <h2 id="memory-section">Main Memory</h2>
+            <p>Main memory provides a temporary storage space that accommodates both the program and its data. This memory space is where the processor reads instructions and performs operations.</p>
+            <p>This component goes by several names: Random Access Memory (RAM), Real memory, or primary memory.</p>
+            <p>An important characteristic of RAM is its volatility. This means that any data stored in it will be lost once the system is powered down.</p>
+        </section>
+
+        <section aria-labelledby="io-section">
+            <h2 id="io-section">I/O Modules</h2>
+            <p>I/O modules facilitate data transfer between the computer and its external environment. Some examples of I/O devices include:</p>
+            <ul>
+                <li>Secondary memory devices (like hard drives)</li>
+                <li>Keyboards</li>
+                <li>Monitors</li>
+                <li>Terminals</li>
+            </ul>
+        </section>
+
+        <section aria-labelledby="bus-section">
+            <h2 id="bus-section">System Bus</h2>
+            <p>The system bus acts as the main communication highway, connecting the processor, main memory, and I/O modules.</p>
+        </section>
+
+        <section aria-labelledby="evolution-section">
+            <h2 id="evolution-section">Evolution of Hardware</h2>
+
+            <article aria-labelledby="microprocessor-subsection">
+                <h3 id="microprocessor-subsection">Microprocessor</h3>
+                <p>The microprocessor, the first of its kind, is essentially a processor confined to a single integrated circuit. This innovation paved the way for desktop and handheld computing devices. Modern iterations include multi-core processors, where each core can operate independently.</p>
+            </article>
+
+            <article aria-labelledby="gpu-subsection">
+                <h3 id="gpu-subsection">Graphical Processing Units (GPU)</h3>
+                <p>GPUs initially began as dedicated processors for rendering graphics. They are adept at performing parallel operations on large data arrays. Today, GPUs have applications in:</p>
+                <ul>
+                    <li>Scientific computing</li>
+                    <li>Machine learning</li>
+                    <li>Image processing</li>
+                    <li>Video processing</li>
+                    <li>3D graphics rendering</li>
+                </ul>
+            </article>
+
+            <article aria-labelledby="dsp-subsection">
+                <h3 id="dsp-subsection">Digital Signal Processors (DSP)</h3>
+                <p>DSPs specialize in processing streaming signals like audio and video. They encode and decode various formats, including MP3, AAC, and H.264. Additionally, they assist in implementing encryption and security protocols.</p>
+            </article>
+
+            <article aria-labelledby="soc-subsection">
+                <h3 id="soc-subsection">System on a Chip (SoC)</h3>
+                <p>SoC represents a merging of various components like CPUs, DSPs, GPUs, memory, and I/O interfaces into a single chip. This consolidated architecture optimizes both power and space, making it ideal for portable devices such as smartphones and tablets.</p>
+            </article>
+        </section>
+        <section aria-label="Instruction Execution Overview">
+          <h2>Instruction execution</h2>
+          <article>
+            <p>This section describes the basics of how a computer processes and executes instructions.</p>
+            <p>A program can be thought of as a list or sequence of instructions stored in a place called memory.</p>
+            <p>Picture a conveyor belt: when the computer is working through a program, it's like it's picking up instructions from this conveyor belt, one by one, and then acting on them.</p>
+            <p>Once it's done with one instruction, it picks up the next, and so on. This keeps going until there are no more instructions left.</p>
+          </article>
+        
+          <article>
+            <h3>Defining an instruction</h3>
+            <p>But what exactly is an instruction? Imagine a secret code or a set of commands given to the computer. This is what an instruction is.</p>
+            <p>For instance, there's a 16-bit secret code, written as 1940 in a system called hexadecimal. Breaking it down:</p>
+            <ul>
+              <li> The first portion (1) tells the computer to pick up or 'Load' something from its storage.</li>
+              <li> The second part (940) tells it where that something is located.</li>
+              <li> Following this code, the computer fetches some data from a specific location and then holds onto it for future tasks.</li>
+            </ul>
+            <p>There are many such codes or instructions, each telling the computer to do different tasks, like storing data or adding numbers.</p>
+          </article>
+        </section>
+        
+        <section aria-label="Step-by-step Example of Instruction Execution">
+          <h2>Illustrating instruction execution with examples</h2>
+          <article>
+            <p>Let's imagine a scenario to better understand this process.</p>
+            <ul>
+              <li>AC holds 0</li>
+              <li>PC holds 300</li>
+              <li>IR holds 0</li>
+              <li>Memory location 300 holds the instruction 1940</li>
+              <li>Memory location 940 holds the data 3</li>
+            </ul>
+            <p>When the processor executes the instruction, it will:</p>
+            <ul>
+              <li>Fetch the instruction from memory location 300 and store it in the instruction register (IR)</li>
+              <li>Increment the program counter (PC) to 301</li>
+              <li>Decode the instruction in the IR</li>
+              <li>Fetch the data from memory location 940 which is 3 and store it in the accumulator (AC)</li>
+            </ul>
+            <p>After the instruction is executed, the state of the hardware will be:</p>
+            <ul>
+              <li>AC holds 3</li>
+              <li>PC holds 301</li>
+              <li>IR holds 1940</li>
+              <li>Memory location 300 holds the instruction 1940</li>
+              <li>Memory location 940 holds the data 3</li>
+            </ul>
+            <p>This process, like a loop, keeps repeating until the computer is told to stop or the program ends.</p>
+          </article>
+        
+          <article>
+            <p>Building on the previous scenario with another task:</p>
+            <ul>
+              <li>AC holds 3</li>
+              <li>PC holds 301</li>
+              <li>IR holds 1940</li>
+              <li>Memory location 300 holds the instruction 1940</li>
+              <li>Memory location 940 holds the data 3</li>
+              <li>Memory location 301 holds the instruction 5941</li>
+              <li>Memory location 941 holds the data 2</li>
+            </ul>
+            <p>When the processor executes the instruction, it will:</p>
+            <ul>
+              <li>Fetch the instruction from memory location 301 and store it in the instruction register (IR)</li>
+              <li>Increment the program counter (PC) to 302</li>
+              <li>Decode the instruction in the IR</li>
+              <li>Fetch the data from memory location 941 which is 2 and add it to the accumulator (AC)</li>
+            </ul>
+            <p>After the instruction is executed, the state of the hardware will be:</p>
+            <ul>
+              <li>AC holds 5</li>
+              <li>PC holds 302</li>
+              <li>IR holds 5941</li>
+              <li>Memory location 300 holds the instruction 1940</li>
+              <li>Memory location 940 holds the data 3</li>
+              <li>Memory location 301 holds the instruction 5941</li>
+              <li>Memory location 941 holds the data 2</li>
+            </ul>
+          </article>
+        
+          <article>
+            <p>Now, let's see what happens when the computer is instructed to store the data it just processed:</p>
+            <ul>
+              <li>AC holds 5</li>
+              <li>PC holds 302</li>
+              <li>IR holds 5941</li>
+              <li>Memory location 300 holds the instruction 1940</li>
+              <li>Memory location 940 holds the data 3</li>
+              <li>Memory location 301 holds the instruction 5941</li>
+              <li>Memory location 941 holds the data 2</li>
+              <li>Memory location 302 holds the instruction 2942</li>
+              <li>Memory location 942 holds the data 0</li>
+            </ul>
+            <p>When the processor executes the instruction, it will:</p>
+            <ul>
+              <li>Fetch the instruction from memory location 302 and store it in the instruction register (IR)</li>
+              <li>Increment the program counter (PC) to 303</li>
+              <li>Decode the instruction in the IR</li>
+              <li>Store the data from the accumulator (AC) to memory location 942</li>
+            </ul>
+            <p>After the instruction is executed, the state of the hardware will be:</p>
+            <ul>
+              <li>AC holds 5</li>
+              <li>PC holds 303</li>
+              <li>IR holds 2942</li>
+              <li>Memory location 300 holds the instruction 1940 (unchanged)</li>
+              <li>Memory location 940 holds the data 3 (unchanged)</li>
+              <li>Memory location 301 holds the instruction 5941 (unchanged)</li>
+              <li>Memory location 941 holds the data 2 (unchanged)</li>
+              <li>Memory location 302 holds the instruction 2942 (unchanged)</li>
+              <li>Memory location 942 holds the data 5 (changed)</li>
+            </ul>
+          </article>
+        </section>
+        <section aria-label="Introduction to Interrupts">
+          <h2>Interrupts Explained</h2>
+          <p>Imagine a librarian diligently sorting books, but a visitor interrupts her occasionally to ask a question. Instead of making the visitor wait, she briefly addresses their query and then goes back to her work. This is similar to how computer 'interrupts' work.</p>
+          <p>Interrupts are like gentle taps on the shoulder for a computer. They allow outside sources, especially I/O (Input/Output) devices, to briefly halt the computer's ongoing tasks so it can handle a new or urgent task.</p>
+          <p>This clever method boosts the productivity of the computer. Why? Let's discuss:</p>
+          <ul>
+            <li>Most I/O devices work slower than our super-fast computer.</li>
+            <li>If our computer didn't have interrupts, it would just sit idle, twiddling its digital thumbs, waiting for the I/O devices to finish. Quite a waste, right?</li>
+            <li>But with the interrupt system, the computer can multitask, just like juggling. It can continue with other jobs while waiting for an I/O device.</li>
+            <li>Once the I/O device finishes its work, it gives a nudge to the computer (the interrupt) letting it know it's done.</li>
+          </ul>
+        </section>
+        <section aria-label="Different Types of Interrupts">
+          <h3>Different Kinds of Interrupts</h3>
+          <p>Just like there are various reasons why someone might interrupt you - a phone call, a knock on the door, or an alarm ringing - computers have different kinds of interrupts too. Let's explore these:</p>
+          <ul>
+            <li>Program Interrupts: Picture these as little alarms for mistakes. They buzz when there's arithmetic confusion, like trying to divide by zero.</li>
+            <li>Timer Interrupts: Think of them as a regular ticking clock, reminding the computer to back up its memory or perform routine tasks.</li>
+            <li>I/O Interrupts: These are alerts from I/O devices, like printers or keyboards, signaling they've completed their tasks.</li>
+            <li>Hardware Failure Interrupts: These are emergency sirens, warning the computer of hardware issues, like a sudden power failure.</li>
+          </ul>
+        </section>
+        <section aria-label="Comparison Between With and Without Interrupts">
+          <h3>Life Without Interrupts</h3>
+          <p>Imagine wanting to send a text while your phone is updating an app. Without interrupts, you'd have to wait until the update finishes before you can text. Quite frustrating!</p>
+          <h3>Life With Interrupts</h3>
+          <p>Now, think of the same scenario, but you can send texts, play music, and do other tasks, all while your app updates in the background. That's the magic of interrupts! They let our computer use its time efficiently, never letting it sit idle for too long.</p>
+        </section>
+        <section aria-label="3 Stage Instruction Cycle">
+          <h2>Upgraded Instruction Cycle: Now in Three Stages!</h2>
+          <p>You might recall the basic 2-stage instruction cycle. But, with our multitasking interrupts, we need an added stage.</p>
+          <p>Let's dive into these three stages:</p>
+          <ul>
+            <li>Fetch: Just like before, it's the computer picking up the instruction.</li>
+            <li>Execute: The computer performs or acts on the instruction.</li>
+            <li>Interrupt: Here, the computer checks if someone's trying to interrupt or notify it.</li>
+          </ul>
+        </section>
+        <section aria-label="Handling Interrupts">
+          <h3>Managing Unexpected Taps on the Shoulder</h3>
+          <p>So, what happens when an interrupt, our tap on the shoulder, takes place? The computer does the following:</p>
+          <ul>
+            <li>First, it quickly saves whatever it was doing to its memory, like bookmarking a page in a book.</li>
+            <li>Then, it looks up the address of the interrupt task, like checking an index in a book.</li>
+            <li>It then performs the interrupt task, handling the new job.</li>
+            <li>Once done, it retrieves its previous task from the bookmark and continues.</li>
+          </ul>
+        </section>
+        <section aria-label="Multiple Simultaneous Interrupts">
+          <h3>When Everyone Wants the Computer's Attention</h3>
+          <p>What happens if two or more devices tap on the computer's shoulder at the same time, like two people talking to you simultaneously? Well, the computer has strategies for that:</p>
+          <ul>
+            <li>Sequential interrupts: Like patiently addressing one person after the other, the computer handles one interrupt fully before moving to the next.</li>
+            <li>Prioritised interrupts: Or, the computer can pick the most urgent tap (or interrupt) to address first, much like addressing a fire alarm before a doorbell.</li>
+          </ul>
+        </section>
+    </main>
+</body>
+
+</html>

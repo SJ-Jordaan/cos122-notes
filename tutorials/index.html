@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>COS122 Notes</title>
+  <title>COS122 Tutorials</title> <!-- More descriptive title -->
 </head>
+
 <body>
-  <!-- Create a navbar for navigating to other static html pages -->
-  <nav>
+
+  <!-- ARIA role for navigation area -->
+  <nav role="navigation" aria-label="Main Navigation"> <!-- Added aria-label for descriptive purpose -->
     <ul>
       <li><a href="../index.html">Home</a></li>
       <li><a href="../lectures/index.html">Lectures</a></li>
       <li><a href="../assignments/index.html">Assignments</a></li>
       <li><a href="../practicals/index.html">Practicals</a></li>
-      <li><a href="index.html">Tutorials</a></li>
+      <li><a href="index.html" aria-current="page">Tutorials</a></li> <!-- Using aria-current to indicate this is the current page -->
     </ul>
   </nav>
+
   <h1>Tutorials homepage</h1>
-  
+
 </body>
+
 </html>
