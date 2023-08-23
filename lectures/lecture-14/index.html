@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lecture 14</title>
+</head>
+<body>
+    <header>
+        <nav role="navigation" aria-label="Main Navigation"> <!-- Added aria-label for descriptive purpose -->
+            <ul>
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../lectures/index.html">Lectures</a></li>
+            <li><a href="../../assignments/index.html">Assignments</a></li> <!-- Using aria-current to indicate this is the current page -->
+            <li><a href="../../practicals/index.html">Practicals</a></li>
+            <li><a href="../../tutorials/index.html">Tutorials</a></li>
+            </ul>
+        </nav>
+        <h1>Chapter 5 Concurrency: Mutual Exclusion and Synchronisation</h1>
+    </header>
+    <main>
+        <article>
+            <section id="message-passing" aria-labelledby="message-passing-heading">
+                <h2 id="message-passing-heading">Message Passing</h2>
+                <p>In this chapter, we'll explore the concept of message passing in operating systems, focusing on how processes communicate and cooperate.</p>
+              </section>
+          
+              <section id="working-together" aria-labelledby="working-together-heading">
+                <h2 id="working-together-heading">Working Together (Synchronization)</h2>
+                <p>When different parts of a computer's brain (called processes) talk to each other, they need to follow two important rules:</p>
+                <ul>
+                    <li> When processes interact with one another two fundamental requirements must be satisfied: </li>
+                    <ol>
+                        <li>
+                            <strong>Synchronisation:</strong> Processes need to work together to achieve their goals. This needs to enforce mutual exclusion.
+                        </li>
+                        <li>
+                            <strong>Communication:</strong> Processes need to share important information with each other.
+                        </li>
+                    </ol>
+                    <li>
+                        Message passing is one approach to providing both of these functions.
+                    </li>
+                    <li>
+                        Works with distributed systems and shared memory multiprocessor and uniprocessor systems
+                    </li>
+                </ul>
+                <p>Imagine this like students in a class. They need to raise their hands and wait for their turn to talk, and sometimes they share their notes with each other.</p>
+                <p>For this talking and sharing to happen, there's a method called "message passing." It's like passing notes in class, but for computers.</p>
+                <p>Here's how it works:</p>
+                <ul>
+                  <li>
+                    <strong>Message Passing:</strong> This is a way for processes to talk and share information. It's used in different types of computer systems, like those where the computers are far apart (distributed systems) or close together (like having many brains in one computer).
+                  </li>
+                </ul>
+                <p>When they use message passing, they use two important actions:</p>
+                <ol>
+                  <li>
+                    <strong>Send:</strong> Imagine one student writing a note and giving it to another student.
+                  </li>
+                  <li>
+                    <strong>Receive:</strong> Imagine a student getting a note, reading it, and knowing who sent it.
+                  </li>
+                </ol>
+              </section>
+          
+              <section id="sharing-news" aria-labelledby="sharing-news-heading">
+                <h2 id="sharing-news-heading">Sharing News (Communication)</h2>
+                <p>In this section, we'll dive deeper into the communication aspects of message sharing.</p>
+                <h3>Types of Messages:</h3>
+                <p>The notes can have different things in them:</p>
+                <ul>
+                  <li>
+                    <strong>What's Inside:</strong> Sometimes the notes are about something important, and they can be long or short.
+                  </li>
+                  <li>
+                    <strong>How Long:</strong> Sometimes the notes are always the same length, and sometimes they can be different lengths.
+                  </li>
+                </ul>
+                <h3>Waiting in Line (Queueing Discipline):</h3>
+                <p>Imagine the students waiting in line to give or receive notes:</p>
+                <ul>
+                  <li>
+                    <strong>First Come, First Served:</strong> Sometimes, they follow the order they arrived in, just like when people stand in line at a store.
+                  </li>
+                  <li>
+                    <strong>Important First:</strong> Sometimes, the important notes go first, like letting a VIP (Very Important Person) go ahead.
+                  </li>
+                </ul>
+                <h3>Finding Each Other (Addressing):</h3>
+                <p>Imagine the students trying to find each other:</p>
+                <ul>
+                  <li>
+                    <strong>Straight to the Point:</strong> Sometimes, one student directly gives a note to another student, and the same for receiving. This is like giving a note to your friend sitting next to you.
+                  </li>
+                  <li>
+                    <strong>Going Through Others:</strong> Sometimes, they need help from other students to pass notes, like asking a messenger to deliver your note.
+                  </li>
+                  <li>
+                    <strong>Staying Flexible:</strong> This can be done in different ways: always the same people, sometimes changing, or even owning the passing-around process.
+                  </li>
+                </ul>
+              </section>
+          
+              <section id="working-together-sharing-news" aria-labelledby="working-together-sharing-news-heading">
+                <h2 id="working-together-sharing-news-heading">Working Together and Sharing News</h2>
+                <p>In this section, we'll explore how processes coordinate and communicate using message passing.</p>
+                <h3>Different Ways They Work Together:</h3>
+                <ol>
+                  <li>
+                    <strong>Waiting Together:</strong> Both the sender and the receiver wait until the note is delivered before doing anything else. This is like making plans to meet up before going somewhere.
+                  </li>
+                  <li>
+                    <strong>Keep Going, but Wait:</strong> The sender keeps doing their thing, but the receiver waits for the note before doing something. It's like sending a text message and waiting for a reply before you decide where to go.
+                  </li>
+                  <li>
+                    <strong>Keep Going:</strong> Both the sender and the receiver can keep doing things without waiting. It's like sending an email and not expecting an immediate reply.
+                  </li>
+                </ol>
+                <p>So, in summary, processes in a computer can talk to each other by passing messages. This helps them work together and share important information. They can do this by sending and receiving messages, and they have different ways of waiting and continuing their work. Just like students passing notes, computers use message passing to cooperate and communicate.</p>
+            </section>
+            
+            <section id="addressing-processes" aria-labelledby="addressing-processes-heading">
+              <h2 id="addressing-processes-heading">Addressing Processes</h2>
+              <p>In operating systems, when processes want to talk to each other, they have different ways of finding each other. This is called "addressing." There are two main types:</p>
+              <ol>
+                <li>
+                  <h3>Direct Addressing</h3>
+                  <p>Imagine sending a letter directly to someone's address. When a process wants to send a message to another process, it includes the specific address of the destination process. When the receiving process wants to talk back, it can do it in two ways:</p>
+                  <ul>
+                    <li>
+                      <h4>Explicit Designation</h4>
+                      <p>The process says who it wants to talk to. This works well when processes are working together.</p>
+                    </li>
+                    <li>
+                      <h4>Implicit Addressing</h4>
+                      <p>The process just knows where the message came from when it receives it. It's like when someone gives you a note, and you know who it's from without them saying it explicitly.</p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                    <h3 id="indirect-addressing-heading">Indirect Addressing for Flexible Communication</h3>
+                    <p>Imagine you have a way to talk to your friends without knowing exactly where they are, like using a message board. Indirect addressing is a bit like that message board. It's a way for processes (like computer programs) to communicate with each other without needing to know exactly who they're talking to. This approach has a big advantage – it gives a lot of freedom in how processes interact.</p>
+                    <h4>Different Types of Relationships</h4>
+                    <p>Think of different ways you can talk to your friends using that message board:</p>
+                    <ul>
+                        <li>
+                        <strong>One-to-One:</strong> You can have private conversations with specific friends. In the computer world, this means two processes can have their own special communication channel, and nobody else can mess with their conversation.
+                        </li>
+                        <li>
+                        <strong>Many-to-One:</strong> Imagine you're a teacher answering questions from many students. In the same way, one process can provide information or help to many other processes. This is useful for things like a server providing services to different clients. In computers, this is often called a "client/server" setup.
+                        </li>
+                        <li>
+                        <strong>One-to-Many:</strong> Suppose you want to tell everyone about a party. You put up a note, and many people read it. Similarly, one process can send a message to multiple processes all at once. This is great when you want to share something with a group of processes.
+                        </li>
+                        <li>
+                        <strong>Many-to-Many:</strong> Think of a chatroom where everyone talks to everyone else. In computers, you can have multiple processes both sending and receiving messages from each other. This is like a big conversation happening all around.
+                        </li>
+                    </ul>
+                    <h4>Static and Dynamic Associations</h4>
+                    <p>Now, let's talk about how these processes and message boards get connected:</p>
+                    <ul>
+                        <li>
+                        <strong>Static Association:</strong> Imagine having a specific table where you always sit in the cafeteria. In the computer world, sometimes the connection between a process and a mailbox (like the message board) is fixed and doesn't change. It's like reserving a spot for someone all the time.
+                        </li>
+                        <li>
+                        <strong>Dynamic Association:</strong> Other times, processes can connect to mailboxes whenever they want. It's like sitting wherever you find an empty seat in the cafeteria. This gives more flexibility, especially when there are many processes trying to communicate.
+                        </li>
+                    </ul>
+                    <h4>Ownership of Mailboxes</h4>
+                    <p>Imagine the message board belongs to someone:</p>
+                    <ul>
+                        <li>
+                        <strong>Port (Owned by the Receiver):</strong> If the message board is set up by the person who reads the messages, it's like they own it. When they leave, the message board might go away too. In computers, a process can have a "port" that it controls and can use to communicate with others.
+                        </li>
+                        <li>
+                        <strong>General Mailbox (Owned by Creator or OS):</strong> In some cases, the computer system itself can create message boards. These boards can either belong to the process that made them or to the computer system. If they belong to the process, they might disappear when the process is done. If they belong to the system, there's a special command to get rid of them.
+                        </li>
+                    </ul>
+                    <p>So, indirect addressing is a way for processes to communicate flexibly, just like using a message board to talk to different people in different ways. It's like a cool way for processes to work together without knowing all the details about each other.</p>
+                </li>
+              </ol>
+            </section>
+
+            <section id="message-format" aria-labelledby="message-format-heading">
+                <h2 id="message-format-heading">Message Format and Structure in Operating Systems</h2>
+                <p>In this section, we'll explore the format and structure of messages used in computer systems for communication between processes.</p>
+                <h3>Message Basics</h3>
+                <p>A message is like a digital letter that processes use to talk to each other in a computer. How this message is put together depends on what the computers want to achieve and whether they're close to each other or far apart.</p>
+                <h3>Header and Body</h3>
+                <p>Think of a message like a sandwich. It has two parts: the top part (header) and the filling (body).</p>
+                <h4>Header:</h4>
+                <p>Just like the top of a sandwich holds important information like what type of sandwich it is, who it's for, and how big it is, the header of a message contains key details. These include:</p>
+                <ul>
+                    <li>
+                    <strong>Message Type:</strong> This is like saying if the message is a happy note, a serious request, or something else.
+                    </li>
+                    <li>
+                    <strong>Destination ID:</strong> It's like writing your friend's name on the envelope, so the computer knows who the message is for.
+                    </li>
+                    <li>
+                    <strong>Source ID:</strong> This is like writing your name on the return address, so the computer knows who sent the message.
+                    </li>
+                    <li>
+                    <strong>Message Length:</strong> Similar to saying how many words are in your letter, this tells the computer how long the message is.
+                    </li>
+                    <li>
+                    <strong>Control Information:</strong> Think of this like special instructions for the computer, such as what to do next.
+                    </li>
+                </ul>
+                <h4>Body:</h4>
+                <p>The body of the message is where the actual information is. Just like the delicious filling in a sandwich, this part contains what the sender wants to say. It could be numbers, words, or even more complex data.</p>
+            </section>
+
+            <!-- Queueing Discipline Section -->
+            <section id="queueing-discipline" aria-labelledby="queueing-discipline-heading">
+                <h2 id="queueing-discipline-heading">Queueing Discipline</h2>
+                <p>When messages are put into a mailbox, they might not be picked up immediately. There's a way to decide who gets their message first:</p>
+                <ul>
+                <li>
+                    <strong>First-In-First-Out (FIFO):</strong> This is like standing in a line. The first message to arrive is the first to be picked up.
+                </li>
+                <li>
+                    <strong>Priority:</strong> Sometimes, certain messages are more important. So, the mailbox system lets you decide which messages should be picked up first based on their importance. This is like letting important people go ahead in a line.
+                </li>
+                </ul>
+                <p>There are different ways to implement this. One way is to have a separate mailbox for each priority level. Another way is to have one mailbox, but the messages are sorted by priority.</p>
+            </section>
+            
+            <!-- Coordinating Processes Section -->
+            <section id="coordinating-processes" aria-labelledby="coordinating-processes-heading">
+                <h2 id="coordinating-processes-heading">Coordinating Processes</h2>
+                <p>Imagine different processes working together. Sometimes, they need to make sure they're not stepping on each other's toes:</p>
+                <ul>
+                <li>
+                    <strong>Mutual Exclusion using Messages:</strong> This is like sharing a toy. Only one person can play with it at a time, or there could be problems. In the same way, processes can use messages to coordinate and take turns. They can use a system where they send and receive messages to control who gets access to a shared resource.
+                </li>
+                </ul>
+                <p>Example to follow:</p>
+                <pre>
+                    <code>
+                    const int n = /* number of processes */;
+                    void P(int i) {
+                      message msg;
+                      while (true) {
+                        receive(box, msg);  <!-- Receive a message from the mailbox -->
+                        <mark>/* Critical section */</mark>;
+                        send(box, msg);     <!-- Send a message back to the mailbox -->
+                        <mark>/* Remainder */</mark>;
+                      }
+                    }
+                    
+                    void main() {
+                      create mailbox(box); <!-- Create a mailbox for communication -->
+                      send(box, null);     <!-- Send an initial message to the mailbox -->
+                      parbegin(P(1), P(2), . . . , P(n)); <!-- Start multiple processes in parallel -->
+                    }
+                    </code>
+                    </pre>
+            </section>
+
+            <section id="bounded-buffer-solution-using-messages" aria-labelledby="bounded-buffer-solution-using-messages-heading">
+                <h2 id="bounded-buffer-solution-using-messages">Solution to the Bounded-Buffer Producer/Consumer Problem Using Messages</h2>
+                <pre>
+                    <code>
+                        const int
+                        capacity = /* buffering capacity */ ; 
+                        null = /* empty message */ ;
+                        int i;
+                        void producer() { 
+                            message pmsg;
+                            while (true) {
+                                receive (mayproduce,pmsg); 
+                                pmsg = produce();
+                                send (mayconsume,pmsg);
+                            }
+                        }
+                        void consumer() {
+                            message cmsg;
+                            while (true) {
+                                receive (mayconsume,cmsg); 
+                                consume (cmsg);
+                                send (mayproduce,null);
+                            }
+                        }
+                        void main() {
+                            create_mailbox (mayproduce);
+                            create_mailbox (mayconsume);
+                        for (int i = 1;i&lt;= capacity;i++) 
+                            send (mayproduce,null); 
+                            parbegin (producer,consumer);
+                        }
+                    </code>
+                </pre>
+            </section>
+            
+            <!-- Readers and Writers Problem Section -->
+            <section id="readers-writers-problem" aria-labelledby="readers-writers-problem-heading">
+                <h2 id="readers-writers-problem-heading">Readers and Writers Problem</h2>
+                <p>Imagine a bunch of students who want to read from a book and some who want to write in it:</p>
+                <ul>
+                <li>
+                    <strong>Readers:</strong> Some students only want to read the book, and they can read together.
+                </li>
+                <li>
+                    <strong>Writers:</strong> Some students want to write in the book, but only one at a time.
+                </li>
+                </ul>
+            </section>
+            
+            <!-- Semaphore Solution: Readers Have Priority Section -->
+            <section id="semaphore-readers-priority" aria-labelledby="semaphore-readers-priority-heading">
+                <h2 id="semaphore-readers-priority-heading">Semaphore Solution: Readers Have Priority</h2>
+                <p>Imagine students using special cards to signal when they want to read or write:</p>
+                <ul>
+                <li>
+                    <strong>Readers:</strong> If a reader is reading, other readers can read too. But when a writer wants to write, no one else can read or write.
+                </li>
+                <li>
+                    <strong>Writers:</strong> If a writer is writing, nobody else can read or write.
+                </li>
+                </ul>
+                <pre>
+                    <code>
+                        /* program readersandwriters */ 
+                        int readcount;
+                        semaphore x = 1,wsem = 1;
+                        void reader() {
+                            while (true){
+                                semWait (x); readcount++; 
+                                if(readcount == 1)
+                                    semWait (wsem);
+                                semSignal (x);
+                                READUNIT(); 
+                                semWait (x); 
+                                readcount--; 
+                                if(readcount == 0)
+                                    semSignal (wsem);
+                                semSignal (x);
+                            } 
+                        }
+                        void writer() {
+                            while (true){ 
+                                semWait (wsem); 
+                                WRITEUNIT(); 
+                                semSignal (wsem);
+                            } 
+                        }
+                        void main() {
+                            readcount = 0;
+                            parbegin (reader,writer); 
+                        }
+                    </code>
+                </pre>
+            </section>
+            
+            <!-- Semaphore Solution: Writers Have Priority Section -->
+            <section id="semaphore-writers-priority" aria-labelledby="semaphore-writers-priority-heading">
+                <h2 id="semaphore-writers-priority-heading">Semaphore Solution: Writers Have Priority</h2>
+                <p>Imagine there are special people who control access to the book:</p>
+                <ul>
+                <li>
+                    <strong>Writers First:</strong> Writers get to write first. When a writer wants to write, they tell the controller, and they're allowed in.
+                </li>
+                <li>
+                    <strong>Readers:</strong> Readers wait until there are no more writers, then they can read.
+                </li>
+                </ul>
+                <pre>
+                    <code>
+                        /* program readersandwriters */
+                        int readcount,writecount; 
+                        semaphore x = 1, y = 1, z = 1, wsem = 1, rsem = 1; 
+                        void reader() {
+                            while (true){ 
+                                semWait (z);
+                                semWait (x);
+                                readcount++;
+                                if (readcount == 1)
+                                    semWait (wsem);
+                                semSignal (x);
+                                semSignal (rsem);
+                                semSignal (z);
+                                READUNIT();
+                                semWait (x);
+                                readcount--;
+                                if (readcount == 0) 
+                                    semSignal (wsem); 
+                                semSignal (x)
+                            }
+                        }
+
+                        void writer () {
+                            while (true){ semWait (y);
+                                writecount++;
+                                if (writecount == 1)
+                                    semWait (rsem);
+                                semSignal (y);
+                                semWait (wsem);
+                                WRITEUNIT();
+                                semSignal (wsem);
+                                semWait (y);
+                                writecount--;
+                                if (writecount == 0) 
+                                    semSignal (rsem); 
+                                semSignal (y);
+                            } 
+                        }
+                        void main() {
+                            readcount = writecount = 0;
+                            parbegin (reader, writer); 
+                        }
+                    </code>
+                </pre>
+            </section>
+            <section id="synchronization-scenarios" aria-labelledby="synchronization-scenarios-heading">
+                <h2 id="synchronization-scenarios-heading">Synchronization Scenarios</h2>
+                <p>wsem refers to writers-semaphore and rsem refers to readers-semaphore</p>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>Scenario</th>
+                        <th>Semaphores</th>
+                        <th>Queue</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Readers only in the system</td>
+                        <td>wsem set</td>
+                        <td>no queues</td>
+                      </tr>
+                      <tr>
+                        <td>Writers only in the system</td>
+                        <td>wsem and rsem set</td>
+                        <td>writers queue on wsem</td>
+                      </tr>
+                      <tr>
+                        <td>Both readers and writers with read first</td>
+                        <td>wsem set by reader<br>rsem set by writer</td>
+                        <td>all writers queue on wsem<br>one reader queues on rsem<br>other readers queue on rsem</td>
+                      </tr>
+                      <tr>
+                        <td>Both readers and writers with write first</td>
+                        <td>wsem set by writer<br>rsem set by writer</td>
+                        <td>writers queue on wsem<br>one reader queues on rsem<br>other readers queue on rsem</td>
+                      </tr>
+                    </tbody>
+                  </table>
+            </section>
+            <!-- Message Passing Solution Section -->
+            <section id="message-passing-solution" aria-labelledby="message-passing-solution-heading">
+                <h2 id="message-passing-solution-heading">Message Passing Solution</h2>
+                <p>Imagine students sending notes to a teacher to ask for permission:</p>
+                <ul>
+                <li>
+                    <strong>Request:</strong> Students send a request to the teacher to read or write.
+                </li>
+                <li>
+                    <strong>Permission:</strong> The teacher grants permission with an "OK" reply message.
+                </li>
+                <li>
+                    <strong>Finish:</strong> When they're done, they send another message to indicate they're finished.
+                </li>
+                </ul>
+                <p>This way, students take turns and coordinate using messages.</p>
+                <pre>
+                    <code>
+                        void reader(int i) {
+                            message rmsg; 
+                            while (true) {
+                                rmsg = i;
+                                send (readrequest, rmsg); 
+                                receive (mbox[i], rmsg); 
+                                READUNIT ();
+                                rmsg = i;
+                                send (finished, rmsg);
+                            } 
+                        }
+                        void writer(int j) {
+                            while (true){
+                                rmsg = j;
+                                send (writerequest, rmsg);
+                                receive (mbox[j], rmsg);
+                                WRITEUNIT ();
+                                rmsg = j;
+                                send (finished, rmsg);
+                            } 
+                        }
+                        void controller() {
+                            while (true) {
+                                if (count &gt; 0) {
+                                    if (!empty (finished)) {
+                                        receive (finished, msg);
+                                        count++; 
+                                    }
+                                    else if (!empty (writerequest)) { 
+                                        receive (writerequest, msg); 
+                                        writer_id = msg.id;
+                                        count = count – 100; 
+                                    }
+                                    else if (!empty (readrequest)) { 
+                                        receive (readrequest, msg); 
+                                        count--;
+                                        send (msg.id, “OK”);
+                                    } 
+                                }
+                                if (count == 0) {
+                                    send (writer_id, “OK”); 
+                                    receive (finished, msg); 
+                                    count = 100;
+                                }
+                                while (count &lt; 0) {
+                                    receive (finished, msg);
+                                    count++; 
+                                }
+                            }
+                        }
+                    </code>
+                </pre>
+            </section>
+            
+          </article>
+    </main>
+</body>
+</html>
